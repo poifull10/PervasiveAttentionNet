@@ -2,4 +2,4 @@
 
 A chainer implementation of https://github.com/elbayadm/attn2d.
 
-paper: https://arxiv.org/abs/1808.03867%                                                                                                                                                                   
+paper: https://arxiv.org/abs/1808.03867                                                                                                                                                                   
