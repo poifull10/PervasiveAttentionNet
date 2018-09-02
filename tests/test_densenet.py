@@ -9,16 +9,17 @@ class TestDenseNet(unittest.TestCase):
 
         ds = 10
         dt = 20
-        layer= 7
+        layer = 7
         g = 4
         height = 10
         width = 10
 
-        input = np.ones((1, ds+dt, height, width)).astype(np.float32)
+        input = np.ones((1, ds + dt, height, width)).astype(np.float32)
         densenet = DenseNet(block_num=layer, k=3, ds=ds, dt=dt, growth=g)
         output = densenet(input)
 
-        self.assertTupleEqual(output.shape, (1, ds + dt + layer*g, height, width))
+        self.assertTupleEqual(output.shape,
+                              (1, ds + dt + layer * g, height, width))
 
 if __name__ == "__main__":
     unittest.main()

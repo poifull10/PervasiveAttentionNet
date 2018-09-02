@@ -1,16 +1,16 @@
-from chainer import Variable
 from chainer import Chain
 from chainer.links import EmbedID
 import chainer.functions as F
-import numpy as np
 
 
 class Embedding(Chain):
-    def __init__(self, vocab_src_size:int, vocab_dst_size:int, bad_word:int, ds:int, dt:int):
+    def __init__(self, vocab_src_size, vocab_dst_size, bad_word, ds, dt):
         super().__init__()
         with self.init_scope():
-            self.emb_src = EmbedID(vocab_src_size, ds, ignore_label=None) # TODO: impl of ignore_label
-            self.emb_dst = EmbedID(vocab_dst_size, dt, ignore_label=None) # TODO: .
+            # TODO:
+            self.emb_src = EmbedID(vocab_src_size, ds, ignore_label=None)
+            # TODO: .
+            self.emb_dst = EmbedID(vocab_dst_size, dt, ignore_label=None)
 
     def __call__(self, src_seq, dst_seq):
         """
@@ -40,11 +40,14 @@ class Embedding(Chain):
             input_src_array = F.repeat(input_src_array, len(dst), axis=2)
             input_dst_array = F.repeat(input_dst_array, len(src), axis=1)
 
-            concat = F.reshape(F.concat([input_src_array, input_dst_array], axis=0), (1, -1, len(src), len(dst)))
+            concat = F.reshape(F.concat(
+                [input_src_array, input_dst_array], axis=0),
+                (1, -1, len(src), len(dst)))
 
             if not batch_input_image:
                 batch_input_image = concat
             else:
-                batch_input_image = F.concat([batch_input_image, concat], axis=0)
+                batch_input_image = F.concat(
+                    [batch_input_image, concat], axis=0)
 
         return batch_input_image

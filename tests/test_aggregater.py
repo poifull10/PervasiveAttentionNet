@@ -1,5 +1,5 @@
 import unittest
-from src.aggregater import MaxPoolAggreagater
+from src.aggregater import MaxPoolAggreagater, AvgPoolAggregater
 from chainer import Variable
 
 
@@ -18,7 +18,23 @@ class TestMaxPoolAggregater(unittest.TestCase):
         self.assertTrue(np.all(y.data == z.data))
 
 
+class TestAvgPoolAggregater(unittest.TestCase):
 
+    def test_avg_pool(self):
+        import numpy as np
+        from chainer import Variable
+        x = np.ones((2, 2, 1, 3), dtype=np.float32)
+        x = Variable(x)
+
+        avg = AvgPoolAggregater()
+
+        h = avg(x)
+        h.grad = np.ones((2, 2, 1), dtype=np.float32)
+
+        h.backward()
+
+        one = np.ones((2, 2, 1, 3), dtype=np.float32)
+        self.assertTrue(np.all(x.grad == one * (1 / np.sqrt(3))))
 
 if __name__ == "__main__":
     unittest.main()

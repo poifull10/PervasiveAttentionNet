@@ -12,8 +12,12 @@ class TestEmbedding(unittest.TestCase):
         ds = 10
         dt = 20
 
-        src_seq = np.arange(input_seq_len).reshape(-1, input_seq_len).astype(np.int32)
-        dst_seq = output_seq_len - 1 - np.arange(output_seq_len).reshape(-1, output_seq_len).astype(np.int32)
+        src_seq = np.arange(input_seq_len).reshape(-1, input_seq_len)
+        src_seq = src_seq.astype(np.int32)
+
+        dst_seq = np.arange(output_seq_len).reshape(-1, output_seq_len)
+        dst_seq = dst_seq.astype(np.int32)
+        dst_seq = output_seq_len - 1 - dst_seq
 
         emb = Embedding(vocab_src_size=input_seq_len,
                         vocab_dst_size=output_seq_len,
@@ -21,7 +25,8 @@ class TestEmbedding(unittest.TestCase):
 
         out = emb(src_seq, dst_seq)
 
-        self.assertTupleEqual(out.shape, (1, ds + dt, input_seq_len, output_seq_len))
+        self.assertTupleEqual(out.shape,
+                              (1, ds + dt, input_seq_len, output_seq_len))
 
 if __name__ == "__main__":
     unittest.main()

@@ -15,8 +15,9 @@ class TestMaskedConv2d(unittest.TestCase):
         conv.conv.W.data = np.ones(9, dtype=np.float32).reshape(1, 1, 3, 3)
         conv.conv.b.data *= 0
 
-        t = np.array([[[[2, 4, 4, 4, 4, 4], [3, 6, 6, 6, 6, 6], [3, 6, 6, 6, 6, 6],
-                        [3, 6, 6, 6, 6, 6], [3, 6, 6, 6, 6, 6], [2, 4, 4, 4, 4, 4]]]], dtype=np.float32)
+        t = [[[[2, 4, 4, 4, 4, 4], [3, 6, 6, 6, 6, 6], [3, 6, 6, 6, 6, 6],
+               [3, 6, 6, 6, 6, 6], [3, 6, 6, 6, 6, 6], [2, 4, 4, 4, 4, 4]]]]
+        t = np.array(t, dtype=np.float32)
 
         self.assertTrue(np.all(conv(x).data == t))
 

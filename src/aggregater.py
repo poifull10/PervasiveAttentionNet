@@ -1,11 +1,11 @@
-
-from chainer import Chain, Variable
-from chainer.links import BatchNormalization, Convolution2D
+from chainer import Chain
 import chainer.functions as F
+import numpy as np
+
 
 class MaxPoolAggreagater(Chain):
     def __init__(self):
-        pass
+        super().__init__()
 
     def __call__(self, x):
         """
@@ -15,3 +15,12 @@ class MaxPoolAggreagater(Chain):
         :return: shape(B, D, I)
         """
         return F.max(x, axis=3)
+
+
+class AvgPoolAggregater(Chain):
+    def __init__(self):
+        super().__init__()
+
+    def __call__(self, x):
+        _, _, _, w = x.shape
+        return F.sum(x, axis=3) * np.sqrt(1/w)
