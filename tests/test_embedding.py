@@ -28,5 +28,6 @@ class TestEmbedding(unittest.TestCase):
         self.assertTupleEqual(out.shape,
                               (1, ds + dt, input_seq_len, output_seq_len))
 
+
 if __name__ == "__main__":
     unittest.main()
