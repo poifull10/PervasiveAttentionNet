@@ -21,5 +21,6 @@ class TestDenseNet(unittest.TestCase):
         self.assertTupleEqual(output.shape,
                               (1, ds + dt + layer * g, height, width))
 
+
 if __name__ == "__main__":
     unittest.main()

@@ -36,5 +36,6 @@ class TestAvgPoolAggregater(unittest.TestCase):
         one = np.ones((2, 2, 1, 3), dtype=np.float32)
         self.assertTrue(np.all(x.grad == one * (1 / np.sqrt(3))))
 
+
 if __name__ == "__main__":
     unittest.main()
